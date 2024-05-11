@@ -12,6 +12,8 @@ const upload = multer({
   limits: { fileSize: 5 * 1024 * 1024 },
 });
 
+router.get("/", jwtCheck, jwtParse, myRestaurantController.getMyRestaurant);
+
 router.post(
   "/",
   upload.single("imageFile"),
@@ -19,6 +21,15 @@ router.post(
   jwtCheck,
   jwtParse,
   myRestaurantController.createMyRestaurant
+);
+
+router.put(
+  "/",
+  upload.single("imageFile"),
+  validateMyRestaurantRequest,
+  jwtCheck,
+  jwtParse,
+  myRestaurantController.updateMyRestaurant
 );
 
 export default router;
